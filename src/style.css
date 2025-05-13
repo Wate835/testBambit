@@ -1,16 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  color: #213547;
+  background-color: #ffffff;
+}
 
-  color-scheme: light dark;
+.dark {
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -28,6 +30,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  @apply bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100;
 }
 
 h1 {
@@ -44,7 +47,7 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.3s ease;
 }
 button:hover {
   border-color: #646cff;
@@ -59,9 +62,7 @@ button:focus-visible {
 }
 
 #app {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -75,5 +76,75 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@layer components {
+  .table-container {
+    @apply w-[600px] mx-auto bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden;
+    height: calc(100vh - 8rem);
+    transition: all 0.3s ease;
+  }
+  
+  .table-scroll {
+    @apply overflow-y-auto h-full;
+  }
+  
+  .table-header {
+    @apply sticky top-0 bg-white dark:bg-gray-700 z-10;
+    transition: all 0.3s ease;
+  }
+  
+  .table-cell {
+    @apply px-4 py-2 text-sm text-gray-900 dark:text-gray-100;
+    max-width: 150px;
+    transition: all 0.3s ease;
+  }
+  
+  .input-field {
+    @apply px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+           bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100
+           focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400;
+    transition: all 0.3s ease;
+  }
+  
+  .btn {
+    @apply px-4 py-2 rounded-lg bg-blue-500 text-white 
+           hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700
+           disabled:opacity-50 disabled:cursor-not-allowed;
+    transition: all 0.3s ease;
+  }
+  
+  .tooltip {
+    @apply fixed z-50 p-2 rounded shadow-lg max-w-xs;
+    transition: all 0.3s ease;
+  }
+
+  .tooltip.light {
+    @apply bg-gray-50 text-gray-900 border border-gray-200 hover:bg-gray-100;
+  }
+
+  .tooltip.dark {
+    @apply bg-gray-600 text-gray-100 hover:bg-gray-500;
+  }
+  
+  .tooltip-content {
+    @apply whitespace-normal break-words;
+  }
+  
+  .group:hover .tooltip {
+    @apply block;
+    animation: fadeIn 0.3s ease;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
