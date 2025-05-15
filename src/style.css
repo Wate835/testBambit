@@ -83,7 +83,6 @@ button:focus-visible {
   .table-container {
     @apply w-[600px] mx-auto bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden;
     height: calc(100vh - 8rem);
-    transition: all 0.3s ease;
   }
   
   .table-scroll {
@@ -92,20 +91,17 @@ button:focus-visible {
   
   .table-header {
     @apply sticky top-0 bg-white dark:bg-gray-700 z-10;
-    transition: all 0.3s ease;
   }
   
   .table-cell {
     @apply px-4 py-2 text-sm text-gray-900 dark:text-gray-100;
     max-width: 150px;
-    transition: all 0.3s ease;
   }
   
   .input-field {
     @apply px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
            bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100
            focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400;
-    transition: all 0.3s ease;
   }
   
   .btn {
