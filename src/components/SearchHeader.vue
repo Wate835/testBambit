@@ -3,12 +3,13 @@
     <input
       :value="modelValue"
       @input="handleInput"
+      @keydown="handleKeyDown"
       type="text"
       placeholder="Введите ID альбомов через пробел"
       class="input-field flex-1"
     />
     <button
-      @click="$emit('search')"
+      @click="handleSearch"
       class="btn"
       :disabled="loading"
     >
@@ -48,11 +49,42 @@ const props = defineProps({
 // События компонента
 const emit = defineEmits(['update:modelValue', 'search', 'toggleTheme'])
 
+// Функция для удаления дубликатов
+const removeDuplicates = (value) => {
+  const numbers = value.trim().split(/\s+/)
+  return [...new Set(numbers)].join(' ')
+}
+
+// Обработчик нажатия клавиш
+const handleKeyDown = (event) => {
+  // Разрешаем: цифры, пробел, backspace, delete, стрелки, tab
+  const allowedKeys = [
+    'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab',
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' '
+  ]
+  
+  if (!allowedKeys.includes(event.key)) {
+    event.preventDefault()
+  }
+}
+
 // Обработчик ввода с валидацией
 const handleInput = (event) => {
   const value = event.target.value
-  // Оставляем только цифры и пробелы
-  const filteredValue = value.replace(/[^\d\s]/g, '')
-  emit('update:modelValue', filteredValue)
+  
+  // Если последний символ - пробел, проверяем на дубликаты
+  if (value.endsWith(' ')) {
+    const uniqueNumbers = removeDuplicates(value)
+    emit('update:modelValue', uniqueNumbers + ' ')
+  } else {
+    emit('update:modelValue', value)
+  }
+}
+
+// Обработчик поиска
+const handleSearch = () => {
+  const uniqueNumbers = removeDuplicates(props.modelValue)
+  emit('update:modelValue', uniqueNumbers)
+  emit('search')
 }
 </script> 
