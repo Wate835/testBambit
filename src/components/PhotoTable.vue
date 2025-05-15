@@ -11,7 +11,7 @@
               class="table-cell cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600"
             >
               {{ label }}
-              <span v-if="sortConfig.key === key">
+              <span class="absolute" v-if="sortConfig.key === key">
                 {{ sortConfig.direction === 'asc' ? '↑' : '↓' }}
               </span>
             </th>
